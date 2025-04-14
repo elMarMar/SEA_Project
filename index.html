@@ -4,28 +4,100 @@
     <title>Test Title | Home</title>
     <meta name="description" content="A Catalog of Shows Set in Los Angeles" />
     <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="scripts.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
     <header class="main-header">
-      <h1 class="title">LA TV Shows</h1>
+      <h1 class="title">PokeDex</h1>
+      <nav>
+        <input
+          type="search"
+          id="site-search"
+          placeholder="Search Pokemon by Name"
+        />
+        <button class="search-btn">Search</button>
+
+        <div class="filters">
+          <label
+            ><input type="checkbox" value="Grass" class="type-filter" /> Grass
+          </label>
+          <label
+            ><input type="checkbox" value="Fire" class="type-filter" /> Fire
+          </label>
+          <label
+            ><input type="checkbox" value="Water" class="type-filter" /> Water
+          </label>
+        </div>
+      </nav>
     </header>
-    <div id="card-container"></div>
-    <div class="card" style="display: none">
-      <div class="card-content">
-        <h2>TV Show Title</h2>
-        <img src="" alt="TV Show Poster" />
-        <ul>
-          <li>Bullet Point 1</li>
-          <li>Bullet Point 2</li>
-          <li>Bullet Point 3</li>
-        </ul>
+    <main>
+      <div id="card-container">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-header">
+              <div class="card-header-left">
+                <div class="cell left">
+                  <span class="pokemon-name">Bulbasaur</span>
+                </div>
+                <div class="cell right">
+                  <span class="pokemon-id">#001</span>
+                </div>
+                <div class="cell left">
+                  <span class="pokemon-species">Seed Pokemon</span>
+                </div>
+                <div class="cell right"><!--Empty Div--></div>
+                <div class="cell bottom">
+                  <span class="pokemon-type primary">grass</span>
+                  <span class="pokemon-type secondary">poison</span>
+                </div>
+              </div>
+              <img
+                class="pokemon-sprite"
+                src="https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/sprites/001.png"
+              />
+            </div>
+            <h2>INFORMATION</h2>
+            <div class="card-info">
+              <span class="pokemon-description cell"
+                >Bulbasaur can be seen napping in bright sunlight. There is a
+                seed on its back. By Soaking up the sun's rays, the seed grows
+                progressively larger.</span
+              >
+              <div class="cell">
+                <span class="pokemon-height">Height: 0.7 m</span>
+              </div>
+              <div class="cell">
+                <span class="pokemon-weight">Weight: 6.9 kg</span>
+              </div>
+              <div class="cell">
+                <span class="pokemon-hp">HP: 45</span>
+              </div>
+              <div class="cell">
+                <span class="pokemon-attack">Attack: 49</span>
+              </div>
+              <div class="cell">
+                <span class="pokemon-defense">Defense: 65</span>
+              </div>
+              <div class="cell">
+                <span class="pokemon-speed">Speed: 45</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </main>
     <div class="footer">
       <button onclick="quoteAlert();">Get A Quote!</button>
       <button onclick="removeLastCard();">Remove A Card!</button>
     </div>
+
+    <script type="text/javascript" src="scripts.js"></script>
   </body>
 </html>
