@@ -12,6 +12,78 @@ body {
   padding: 0;
 }
 
+nav {
+  background-color: rgb(231, 19, 19);
+  width: 100%;
+  color: white;
+  position: fixed;
+}
+
+nav .advanced-search {
+  display: flex;
+}
+nav #sort-by-label {
+  text-align: center;
+  grid-column: span 2;
+}
+
+nav #reverse-list-btn {
+  grid-column: span 2;
+}
+
+.add-delete-menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+nav .add-menu {
+  width: 100%;
+}
+
+nav .filters {
+  width: 30%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(8, 1fr);
+}
+
+nav #filter-by-label {
+  text-align: center;
+  grid-column: span 3;
+}
+
+nav #deslect-all-types {
+  grid-column: span 3;
+}
+
+.compact-menu {
+  display: flex;
+  height: 4rem;
+  align-items: center;
+}
+
+.compact-menu > div {
+  margin-left: auto;
+}
+
+.compact-menu #site-search-box {
+  width: 500px;
+  height: 48px;
+  background-color: #777;
+  color: white;
+}
+.compact-menu #site-search-box::placeholder {
+  color: #d8d8d8;
+}
+
+.sort-by {
+  width: 30%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(6, 1fr);
+}
+
 .main-header {
   background-color: rgba(0, 0, 0, 0.3);
   padding-bottom: 10px;
@@ -21,8 +93,7 @@ body {
   text-align: center;
   margin: 0;
   font-size: 8em;
-  font-family: "Helvetica";
-  font-weight: normal;
+  padding-top: 1em;
   color: white;
 }
 
@@ -31,20 +102,35 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: blue;
 }
 
 #card-container {
   display: grid;
+  justify-items: center;
+  align-items: center;
   margin: 25px;
   gap: 40px;
-  grid-template-columns: repeat(3, 400px);
+  grid-template-columns: repeat(3, 420px);
 }
 
 .card {
+  background-color: white;
   box-shadow: -10px 0 0 0 black, 10px 0 0 0 black, 0 -10px 0 0 black,
     0 10px 0 0 black;
   width: 400px;
   height: 600px;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.card:hover {
+  box-shadow: -10px 0 0 0 gold, 10px 0 0 0 gold, 0 -10px 0 0 gold,
+    0 10px 0 0 gold;
+  width: 420px;
+  transition: 0.3s;
 }
 
 .card-content {
@@ -158,5 +244,5 @@ button {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }

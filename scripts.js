@@ -14,7 +14,7 @@ class Pokemon {
     defense,
     speed
   ) {
-    this.nameVar = name;
+    this.name = name;
     this.id = id;
     this.species = species;
     this.type1 = type1;
@@ -31,49 +31,116 @@ class Pokemon {
 }
 
 // "Grab" HTML elements and make them interative
-document
-  .getElementsByClassName("search-btn")[0]
-  .addEventListener("click", searchPokemon);
+// TODO: FIX HEIGHT WEIGHT SEARCH
+const sortByNameBtn = document.getElementById("sort-by-name-btn");
+const sortByIdBtn = document.getElementById("sort-by-id-btn");
 
-const checkboxes = document.getElementsByClassName("type-filter");
+// TODO: FIX HEIGHT WEIGHT SEARCH
+const sortByHeightBtn = document.getElementById("sort-by-height-btn");
+const sortByWeightBtn = document.getElementById("sort-by-weight-btn");
 
-let pokemonArr = [];
-let cards = document.querySelectorAll(".card");;
+const sortByHpBtn = document.getElementById("sort-by-hp-btn");
+const sortByAttackBtn = document.getElementById("sort-by-attack-btn");
+const sortByDefenseBtn = document.getElementById("sort-by-defense-btn");
+const sortBySpeedBtn = document.getElementById("sort-by-speed-btn");
+const searchInput = document.getElementById("site-search-box");
+const typeCheckboxes = document.getElementsByClassName("type-filter");
+const deselectAllTypesBtn = document.getElementById("deslect-all-types");
+const searchFilterBtn = document.getElementById("search-filter-btn");
+const reverseListBtn = document.getElementById("reverse-list-btn");
+const deleteBarInput = document.getElementById("delete-bar-input");
+const deleteBtn = document.getElementById("delete-btn");
+
+const toggleAdvancedSearchBtn = document.getElementById(
+  "toggle-advanced-search-btn"
+);
+
+let pokemonArr = []; // Work on pokemonArr rather than display cards themselves.
+const filters = {
+  sortedByAttribute: "",
+  searchInput: "",
+  types: [],
+};
+
 main();
 
 async function main() {
   data = await getData();
+  storePokemonData(data);
   showCards(data);
+
+  searchFilterBtn.addEventListener("click", applyFilters);
+  reverseListBtn.addEventListener("click", handleReverseList);
+  sortByNameBtn.addEventListener("click", function () {
+    handleSort("name");
+  });
+  sortByIdBtn.addEventListener("click", function () {
+    handleSort("id");
+  });
+  sortByHeightBtn.addEventListener("click", function () {
+    handleSort("height");
+  });
+
+  sortByHpBtn.addEventListener("click", function () {
+    handleSort("hp");
+  });
+
+  sortByAttackBtn.addEventListener("click", function () {
+    handleSort("attack");
+  });
+
+  sortByDefenseBtn.addEventListener("click", function () {
+    handleSort("defense");
+  });
+
+  sortBySpeedBtn.addEventListener("click", function () {
+    handleSort("speed");
+  });
+
+  deselectAllTypesBtn.addEventListener("click", handleDeselectAllTypesBtn);
+  deleteBtn.addEventListener("click", handleDeletion);
+  toggleAdvancedSearchBtn.addEventListener("click", handleToggleAdvancedSearch);
 }
 
 async function getData() {
   const res = await fetch("./data/pokedex.json");
   const data = await res.json();
-  storePokemonData(data);
-
   return data;
 }
 
-function searchPokemon() {
-  const targetName = document
-    .getElementById("site-search")
-    .value.trim()
-    .toLowerCase();
+function applyFilters() {
+  storeFilters();
+  const targetValue = filters.searchInput;
+  const cards = document.getElementsByClassName("card");
 
-  if (targetName == "") {
-    for (let i = 0; i < cards.length; i++) {
-      cards[i].classList.remove("hidden");
-    }
-  } else {
-    for (let i = 0; i < cards.length; i++) {
-      const card = cards[i];
-      const searchName = card
-        .getElementsByClassName("pokemon-name")[0]
-        .textContent.trim()
-        .toLowerCase();
-      if (searchName !== targetName) card.classList.add("hidden");
-      else card.classList.remove("hidden");
-    }
+  for (let i = 0; i < pokemonArr.length; i++) {
+    const pm = pokemonArr[i];
+
+    // Filter By Search Bar
+    const searchBarMatch =
+      pm.name.trim().toLowerCase().includes(targetValue) ||
+      pm.species.trim().toLowerCase().includes(targetValue);
+
+    // Filter by types
+    const type1Match = filters.types.includes(pm.type1.toLowerCase());
+    let type2Match = false;
+    if (pm.type2 != null && filters.types.includes(pm.type2.toLowerCase()))
+      type2Match = true;
+
+    const typeMatch = type1Match || type2Match;
+
+    if (searchBarMatch && typeMatch) cards[i].classList.remove("hidden");
+    else cards[i].classList.add("hidden");
+  }
+}
+
+function storeFilters() {
+  filters.searchInput = searchInput.value.trim().toLowerCase(); // "Grab" string from searchbar
+  filters.types = []; // Reset type filter
+  // Instantiate Type Filter
+  for (let i = 0; i < typeCheckboxes.length; i++) {
+    if (typeCheckboxes[i].checked)
+      filters.types.push(typeCheckboxes[i].value.toLowerCase());
   }
 }
 
@@ -98,23 +165,27 @@ function storePokemonData(data) {
   }
 }
 
-// This function adds cards the page to display the data in the array
 function showCards(pokemon) {
   const cardContainer = document.getElementById("card-container");
-  const templateCard = document.querySelector(".card");
+  const templateCard = document.getElementById("template-card");
 
-  for (let i = 1; i < pokemon.length; i++) {
-    // Copy the template card
-    const nextCard = templateCard.cloneNode(true);
+  // Clear all the cards on screen except the template
+  cardContainer.innerHTML = "";
+  cardContainer.appendChild(templateCard); // Keep the template in DOM but hidden
 
-    // Edit title and image
-    editCardContent(nextCard, pokemonArr[i]);
+  for (let i = 0; i < pokemon.length; i++) {
+    const nextCard = templateCard.cloneNode(true); // Copy the template card
+    nextCard.removeAttribute("id"); // Remove "id= 'template-card' to avoid multiple templates"
+    nextCard.classList.remove("hidden"); // Make card visible
+    nextCard.classList.add("card"); // template-card is not part of card class to maintain invariants
+
+    editCardContent(nextCard, pokemonArr[i]); // Edit title and image
     cardContainer.appendChild(nextCard); // Add new card to the container
   }
 }
 
 function editCardContent(card, pokemon) {
-  let pokemonName = pokemon.nameVar;
+  let pokemonName = pokemon.name;
   let pokemonId = pokemon.id;
   let pokemonSpecies = pokemon.species;
   let pokemonType1 = pokemon.type1;
@@ -124,7 +195,7 @@ function editCardContent(card, pokemon) {
 
   // Set Pokemon Name
   const cardName = card.getElementsByClassName("pokemon-name")[0];
-  cardName.textContent = pokemon.nameVar;
+  cardName.textContent = pokemon.name;
 
   // Set and Format Pokemon ID
   const cardId = card.getElementsByClassName("pokemon-id")[0];
@@ -170,111 +241,105 @@ function editCardContent(card, pokemon) {
     "Defense: " + pokemon.defense;
   card.getElementsByClassName("pokemon-speed")[0].textContent =
     "Speed: " + pokemon.speed;
-
-  // You can use console.log to help you debug!
-  // View the output by right clicking on your website,
-  // select "Inspect", then click on the "Console" tab
-  console.log("new card:", pokemon.name, "- html: ", card);
-  // This calls the addCards() function when the page is first loaded
-  document.addEventListener("DOMContentLoaded", showCards);
 }
 
-/**
- * Data Catalog Project Starter Code - SEA Stage 2
- *
- * This file is where you should be doing most of your work. You should
- * also make changes to the HTML and CSS files, but we want you to prioritize
- * demonstrating your understanding of data structures, and you'll do that
- * with the JavaScript code you write in this file.
- *
- * The comments in this file are only to help you learn how the starter code
- * works. The instructions for the project are in the README. That said, here
- * are the three things you should do first to learn about the starter code:
- * - 1 - Change something small in index.html or style.css, then reload your
- *    browser and make sure you can see that change.
- * - 2 - On your browser, right click anywhere on the page and select
- *    "Inspect" to open the browser developer tools. Then, go to the "console"
- *    tab in the new window that opened up. This console is where you will see
- *    JavaScript errors and logs, which is extremely helpful for debugging.
- *    (These instructions assume you're using Chrome, opening developer tools
- *    may be different on other browsers. We suggest using Chrome.)
- * - 3 - Add another string to the titles array a few lines down. Reload your
- *    browser and observe what happens. You should see a fourth "card" appear
- *    with the string you added to the array, but a broken image.
- *
- */
-/*
-const FRESH_PRINCE_URL =
-  "https://upload.wikimedia.org/wikipedia/en/3/33/Fresh_Prince_S1_DVD.jpg";
-const CURB_POSTER_URL =
-  "https://m.media-amazon.com/images/M/MV5BZDY1ZGM4OGItMWMyNS00MDAyLWE2Y2MtZTFhMTU0MGI5ZDFlXkEyXkFqcGdeQXVyMDc5ODIzMw@@._V1_FMjpg_UX1000_.jpg";
-const EAST_LOS_HIGH_POSTER_URL =
-  "https://static.wikia.nocookie.net/hulu/images/6/64/East_Los_High.jpg";
+function handleSort(attribute) {
+  pokemonArr = quickSort(pokemonArr, attribute);
+  filters.sortedByAttribute = attribute;
+  //TODO: FIX THIS
+  applyFilters();
+}
 
-// This is an array of strings (TV show titles)
-let titles = [
-  "Fresh Prince of Bel Air",
-  "Curb Your Enthusiasm",
-  "East Los High",
-  "Bruh Borger",
-];
-// Your final submission should have much more data than this, and
-// you should use more than just an array of strings to store it all.
+function quickSort(arr, attribute) {
+  if (arr.length <= 1) return arr;
 
-// This function adds cards the page to display the data in the array
-function showCards() {
-  const cardContainer = document.getElementById("card-container");
-  cardContainer.innerHTML = "";
-  const templateCard = document.querySelector(".card");
+  const pivotPokemon = arr[arr.length - 1];
+  const pivot = pivotPokemon[attribute];
 
-  for (let i = 0; i < titles.length; i++) {
-    let title = titles[i];
+  const leftArr = [];
+  const rightArr = [];
 
-    // This part of the code doesn't scale very well! After you add your
-    // own data, you'll need to do something totally different here.
-    let imageURL = "";
-    if (i == 0) {
-      imageURL = FRESH_PRINCE_URL;
-    } else if (i == 1) {
-      imageURL = CURB_POSTER_URL;
-    } else if (i == 2) {
-      imageURL = EAST_LOS_HIGH_POSTER_URL;
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i][attribute] < pivot) {
+      leftArr.push(arr[i]);
+    } else {
+      rightArr.push(arr[i]);
     }
+  }
 
-    const nextCard = templateCard.cloneNode(true); // Copy the template card
-    editCardContent(nextCard, title, imageURL); // Edit title and image
-    cardContainer.appendChild(nextCard); // Add new card to the container
+  return [
+    ...quickSort(leftArr, attribute),
+    pivotPokemon,
+    ...quickSort(rightArr, attribute),
+  ];
+}
+
+function handleReverseList() {
+  pokemonArr = reverseList(pokemonArr);
+  applyFilters();
+}
+
+function reverseList(arr) {
+  let temp = [];
+  for (let i = arr.length - 1; i >= 0; i--) {
+    temp.push(arr[i]);
+  }
+  return temp;
+}
+
+function handleToggleAdvancedSearch() {
+  const advancedSearchBtn =
+    document.getElementsByClassName("advanced-search")[0];
+  advancedSearchBtn.classList.toggle("hidden");
+}
+
+function handleDeletion() {
+  //TODO: HANDLE DELETION WITH BUTTON
+  const target = deleteBarInput.value;
+  console.log(target);
+  deleteElementFromArr(pokemonArr, "name", target);
+  showCards(pokemonArr);
+  console.log(pokemonArr.length);
+}
+
+function handlePokemonAddition() {}
+
+function deleteElementFromArr(arr, targetAttributeType, targetAttribute) {
+  let i = 0;
+  let found = false;
+  for (; i < arr.length; i++) {
+    if (arr[i][targetAttributeType] == targetAttribute) {
+      found = true;
+      break;
+    }
+  }
+
+  if (found) {
+    for (; i < arr.length - 1; i++) {
+      arr[i] = arr[i + 1];
+    }
+    pokemonArr.pop();
+  } else return false;
+  return true;
+}
+
+function handleDeselectAllTypesBtn() {
+  console.log(typeCheckboxes.length);
+  let noValuesSelected = true;
+  for (let i = 0; i < typeCheckboxes.length; i++) {
+    if (typeCheckboxes[i].checked == true) {
+      noValuesSelected = false;
+      break;
+    }
+  }
+
+  if (noValuesSelected) {
+    for (let i = 0; i < typeCheckboxes.length; i++) {
+      typeCheckboxes[i].checked = true;
+    }
+  } else {
+    for (let i = 0; i < typeCheckboxes.length; i++) {
+      typeCheckboxes[i].checked = false;
+    }
   }
 }
-
-function editCardContent(card, newTitle, newImageURL) {
-  card.style.display = "block";
-
-  const cardHeader = card.querySelector("h2");
-  cardHeader.textContent = newTitle;
-
-  const cardImage = card.querySelector("img");
-  cardImage.src = newImageURL;
-  cardImage.alt = newTitle + " Poster";
-
-  // You can use console.log to help you debug!
-  // View the output by right clicking on your website,
-  // select "Inspect", then click on the "Console" tab
-  console.log("new card:", newTitle, "- html: ", card);
-}
-
-// This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", showCards);
-
-function quoteAlert() {
-  console.log("Button Clicked!");
-  alert(
-    "I guess I can kiss heaven goodbye, because it got to be a sin to look this good!"
-  );
-}
-
-function removeLastCard() {
-  titles.pop(); // Remove last item in titles array
-  showCards(); // Call showCards again to refresh
-}
-*/

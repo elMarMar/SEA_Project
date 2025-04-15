@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Test Title | Home</title>
-    <meta name="description" content="A Catalog of Shows Set in Los Angeles" />
+    <meta name="description" content="A Catalog of Pokemon Pokedex Entries" />
     <link rel="stylesheet" href="style.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,31 +15,259 @@
 
   <body>
     <header class="main-header">
-      <h1 class="title">PokeDex</h1>
       <nav>
-        <input
-          type="search"
-          id="site-search"
-          placeholder="Search Pokemon by Name"
-        />
-        <button class="search-btn">Search</button>
+        <div class="advanced-search hidden">
+          <div class="sort-by">
+            <h2 id="sort-by-label">SORT BY:</h2>
+            <button id="sort-by-name-btn">Name</button>
+            <button id="sort-by-id-btn">ID</button>
+            <button id="sort-by-height-btn">Height</button>
+            <button id="sort-by-weight-btn">Weight</button>
+            <button id="sort-by-hp-btn">HP</button>
+            <button id="sort-by-attack-btn">Attack</button>
+            <button id="sort-by-defense-btn">Defense</button>
+            <button id="sort-by-speed-btn">Speed</button>
+            <button id="reverse-list-btn">Reverse List</button>
+          </div>
 
-        <div class="filters">
-          <label
-            ><input type="checkbox" value="Grass" class="type-filter" /> Grass
-          </label>
-          <label
-            ><input type="checkbox" value="Fire" class="type-filter" /> Fire
-          </label>
-          <label
-            ><input type="checkbox" value="Water" class="type-filter" /> Water
-          </label>
+          <div class="filters">
+            <h2 id="filter-by-label">FILTER BY TYPE:</h2>
+            <label
+              ><input
+                type="checkbox"
+                value="Normal"
+                class="type-filter"
+                checked
+              />
+              Normal</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Fire"
+                class="type-filter"
+                checked
+              />
+              Fire</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Water"
+                class="type-filter"
+                checked
+              />
+              Water</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Grass"
+                class="type-filter"
+                checked
+              />
+              Grass</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Electric"
+                class="type-filter"
+                checked
+              />
+              Electric</label
+            >
+            <label
+              ><input type="checkbox" value="Ice" class="type-filter" checked />
+              Ice</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Fighting"
+                class="type-filter"
+                checked
+              />
+              Fighting</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Poison"
+                class="type-filter"
+                checked
+              />
+              Poison</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Ground"
+                class="type-filter"
+                checked
+              />
+              Ground</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Flying"
+                class="type-filter"
+                checked
+              />
+              Flying</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Psychic"
+                class="type-filter"
+                checked
+              />
+              Psychic</label
+            >
+            <label
+              ><input type="checkbox" value="Bug" class="type-filter" checked />
+              Bug</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Rock"
+                class="type-filter"
+                checked
+              />
+              Rock</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Ghost"
+                class="type-filter"
+                checked
+              />
+              Ghost</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Dragon"
+                class="type-filter"
+                checked
+              />
+              Dragon</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Dark"
+                class="type-filter"
+                checked
+              />
+              Dark</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Steel"
+                class="type-filter"
+                checked
+              />
+              Steel</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Fairy"
+                class="type-filter"
+                checked
+              />
+              Fairy</label
+            >
+            <button id="deslect-all-types">Deselect/Select All Types</button>
+          </div>
+          <div class="add-delete-menu">
+            <div class="delete-menu">
+              <input
+                type="search"
+                id="delete-bar-input"
+                placeholder="Delete by Name/Species/Type"
+              />
+              <button id="delete-btn">Remove by Name or ID</button>
+            </div>
+            <div class="add-menu">
+              <input type="search" id="add-name-bar-input" placeholder="Name" />
+              <input
+                type="search"
+                id="add-species-bar-input"
+                placeholder="Species"
+              />
+              <input
+                type="search"
+                id="add-type2-bar-input"
+                placeholder="Type 1"
+              />
+              <input
+                type="search"
+                id="add-type1-bar-input"
+                placeholder="Type 2"
+              />
+              <input
+                type="search"
+                id="add-description-bar-input"
+                placeholder="Description"
+              />
+              <input
+                type="search"
+                id="add-height-bar-input"
+                placeholder="Height"
+              />
+              <input
+                type="search"
+                id="add-weight-bar-input"
+                placeholder="Weight"
+              />
+              <input type="search" id="add-hp-bar-input" placeholder="HP" />
+              <input
+                type="search"
+                id="add-attack-bar-input"
+                placeholder="Attack"
+              />
+              <input
+                type="search"
+                id="add-defense-bar-input"
+                placeholder="Defense"
+              />
+              <input
+                type="search"
+                id="add-speed-bar-input"
+                placeholder="Speed"
+              />
+              <button id="delete-btn">Add</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="compact-menu">
+          <button id="toggle-advanced-search-btn">
+            Toggle Advanced Search
+          </button>
+          <div>
+            <input
+              type="search"
+              id="site-search-box"
+              placeholder="Search Pokemon by Name/Species/Type"
+            />
+            <button id="search-filter-btn">Apply Search/Filter</button>
+          </div>
         </div>
       </nav>
+      <h1 class="title">PokeDex Catalog</h1>
     </header>
     <main>
       <div id="card-container">
-        <div class="card">
+        <!--Note: template card is NOT in card class-->
+        <div id="template-card" class="hidden">
           <div class="card-content">
             <div class="card-header">
               <div class="card-header-left">
