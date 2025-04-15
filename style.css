@@ -19,7 +19,7 @@ nav {
   position: fixed;
 }
 
-nav .advanced-search {
+nav .main-menu {
   display: flex;
 }
 nav #sort-by-label {
@@ -103,6 +103,8 @@ main {
   justify-content: center;
   align-items: center;
   background-color: blue;
+  min-height: 100vh;
+  min-width: 100wh;
 }
 
 #card-container {
@@ -241,6 +243,10 @@ button {
   font-size: 22px;
   cursor: pointer;
   margin: 5px;
+}
+
+button.active {
+  background-color: gold;
 }
 
 .hidden {

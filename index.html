@@ -16,11 +16,11 @@
   <body>
     <header class="main-header">
       <nav>
-        <div class="advanced-search hidden">
+        <div class="main-menu hidden">
           <div class="sort-by">
             <h2 id="sort-by-label">SORT BY:</h2>
             <button id="sort-by-name-btn">Name</button>
-            <button id="sort-by-id-btn">ID</button>
+            <button id="sort-by-id-btn" class="active">ID</button>
             <button id="sort-by-height-btn">Height</button>
             <button id="sort-by-weight-btn">Weight</button>
             <button id="sort-by-hp-btn">HP</button>
@@ -191,67 +191,91 @@
               <input
                 type="search"
                 id="delete-bar-input"
-                placeholder="Delete by Name/Species/Type"
+                placeholder="Delete by Name"
               />
-              <button id="delete-btn">Remove by Name or ID</button>
+              <button id="delete-btn">Delete Pokemon by Name</button>
             </div>
             <div class="add-menu">
-              <input type="search" id="add-name-bar-input" placeholder="Name" />
               <input
                 type="search"
+                class="add-update-input"
+                id="add-name-bar-input"
+                placeholder="Name"
+              />
+              <input
+                type="search"
+                class="add-update-input"
                 id="add-species-bar-input"
                 placeholder="Species"
               />
               <input
                 type="search"
+                class="add-update-input"
                 id="add-type2-bar-input"
                 placeholder="Type 1"
               />
               <input
                 type="search"
+                class="add-update-input"
                 id="add-type1-bar-input"
                 placeholder="Type 2"
               />
               <input
                 type="search"
+                class="add-update-input"
                 id="add-description-bar-input"
                 placeholder="Description"
               />
               <input
                 type="search"
+                class="add-update-input"
                 id="add-height-bar-input"
                 placeholder="Height"
               />
               <input
                 type="search"
+                class="add-update-input"
                 id="add-weight-bar-input"
                 placeholder="Weight"
               />
-              <input type="search" id="add-hp-bar-input" placeholder="HP" />
               <input
                 type="search"
+                class="add-update-input"
+                id="add-hp-bar-input"
+                placeholder="HP"
+              />
+              <input
+                type="search"
+                class="add-update-input"
                 id="add-attack-bar-input"
                 placeholder="Attack"
               />
               <input
                 type="search"
+                class="add-update-input"
                 id="add-defense-bar-input"
                 placeholder="Defense"
               />
               <input
                 type="search"
+                class="add-update-input"
                 id="add-speed-bar-input"
                 placeholder="Speed"
               />
-              <button id="delete-btn">Add</button>
+              <button id="add-update-btn">Add/Update Pokemon</button>
+              <span>Enter ID to Update. Leave Blan to Add</span>
+              <input
+                type="search"
+                class="add-update-input"
+                id="add-speed-bar-input"
+                placeholder="ID"
+              />
             </div>
           </div>
         </div>
 
         <div class="compact-menu">
-          <button id="toggle-advanced-search-btn">
-            Toggle Advanced Search
-          </button>
+          <button id="toggle-main-menu-btn">Toggle Main Menu</button>
           <div>
             <input
               type="search"
@@ -322,10 +346,9 @@
       </div>
     </main>
     <div class="footer">
-      <button onclick="quoteAlert();">Get A Quote!</button>
-      <button onclick="removeLastCard();">Remove A Card!</button>
+      <p>You've Reached the End of the Pokedex!</p>
     </div>
 
-    <script type="text/javascript" src="scripts.js"></script>
+    <script type="text/javascript" src="script.js"></script>
   </body>
 </html>
