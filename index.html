@@ -292,61 +292,60 @@
       <h1 class="title">PokeDex Catalog</h1>
     </header>
     <main>
-      <div id="card-container">
-        <!--Note: template card is NOT in card class-->
-        <div id="template-card" class="hidden">
-          <div class="card-content">
-            <div class="card-header">
-              <div class="card-header-left">
-                <div class="cell left">
-                  <span class="pokemon-name">Bulbasaur</span>
-                </div>
-                <div class="cell right">
-                  <span class="pokemon-id">#001</span>
-                </div>
-                <div class="cell left">
-                  <span class="pokemon-species">Seed Pokemon</span>
-                </div>
-                <div class="cell right"><!--Empty Div--></div>
-                <div class="cell bottom">
-                  <span class="pokemon-type primary">grass</span>
-                  <span class="pokemon-type secondary">poison</span>
-                </div>
+      <!--Note: template card is NOT in card class-->
+      <div id="template-card" class="hidden">
+        <div class="card-content">
+          <div class="card-header">
+            <div class="card-header-left">
+              <div class="cell left">
+                <span class="pokemon-name">Bulbasaur</span>
               </div>
-              <img
-                class="pokemon-sprite"
-                src="https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/sprites/001.png"
-              />
+              <div class="cell right">
+                <span class="pokemon-id">#001</span>
+              </div>
+              <div class="cell left">
+                <span class="pokemon-species">Seed Pokemon</span>
+              </div>
+              <div class="cell right"><!--Empty Div--></div>
+              <div class="cell bottom">
+                <span class="pokemon-type primary">grass</span>
+                <span class="pokemon-type secondary">poison</span>
+              </div>
             </div>
-            <h2>INFORMATION</h2>
-            <div class="card-info">
-              <span class="pokemon-description cell"
-                >Bulbasaur can be seen napping in bright sunlight. There is a
-                seed on its back. By Soaking up the sun's rays, the seed grows
-                progressively larger.</span
-              >
-              <div class="cell">
-                <span class="pokemon-height">Height: 0.7 m</span>
-              </div>
-              <div class="cell">
-                <span class="pokemon-weight">Weight: 6.9 kg</span>
-              </div>
-              <div class="cell">
-                <span class="pokemon-hp">HP: 45</span>
-              </div>
-              <div class="cell">
-                <span class="pokemon-attack">Attack: 49</span>
-              </div>
-              <div class="cell">
-                <span class="pokemon-defense">Defense: 65</span>
-              </div>
-              <div class="cell">
-                <span class="pokemon-speed">Speed: 45</span>
-              </div>
+            <img
+              class="pokemon-sprite"
+              src="https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/sprites/001.png"
+            />
+          </div>
+          <h2>INFORMATION</h2>
+          <div class="card-info">
+            <span class="pokemon-description cell"
+              >Bulbasaur can be seen napping in bright sunlight. There is a seed
+              on its back. By Soaking up the sun's rays, the seed grows
+              progressively larger.</span
+            >
+            <div class="cell">
+              <span class="pokemon-height">Height: 0.7 m</span>
+            </div>
+            <div class="cell">
+              <span class="pokemon-weight">Weight: 6.9 kg</span>
+            </div>
+            <div class="cell">
+              <span class="pokemon-hp">HP: 45</span>
+            </div>
+            <div class="cell">
+              <span class="pokemon-attack">Attack: 49</span>
+            </div>
+            <div class="cell">
+              <span class="pokemon-defense">Defense: 65</span>
+            </div>
+            <div class="cell">
+              <span class="pokemon-speed">Speed: 45</span>
             </div>
           </div>
         </div>
       </div>
+      <div id="card-container"><!--Cards will be cloned into this div-->></div>
     </main>
     <div class="footer">
       <p>You've Reached the End of the Pokedex!</p>

@@ -106,7 +106,6 @@ function showCards(pokemon) {
   const templateCard = document.getElementById("template-card");
 
   cardContainer.innerHTML = ""; // Clear all the cards on screen except the template
-  cardContainer.appendChild(templateCard); // Keep the template in DOM but hidden
 
   for (let i = 0; i < pokemon.length; i++) {
     const nextCard = templateCard.cloneNode(true); // Copy the template card
@@ -276,6 +275,15 @@ function handleAddOrUpdatePokemon() {
 }
 
 function updatePokemon(targetId) {
+  // Check that ID is valid
+  const parsedId = parseInt(targetId);
+  //NaN --> Floating point values ** NaN === NaN Always false **
+  //Null --> Pointers/objects/references
+  if (isNaN(parsedId)) {
+    alert("Invalid ID. Please enter a number.");
+    return false;
+  }
+
   // Check to make sure types are valid
   let type1Val = addUpdateInputs[2].value;
   let type2Val = addUpdateInputs[3].value;
@@ -309,7 +317,7 @@ function updatePokemon(targetId) {
   let i = 0;
   let found = false;
   for (; i < pokemonArr.data.length; i++) {
-    if (pokemonArr.data[i].id == targetId) {
+    if (pokemonArr.data[i].id == parsedId) {
       found = true;
       break;
     }
@@ -336,28 +344,28 @@ function updatePokemon(targetId) {
     updatePokemonAttribute(
       pokemonArr.data[i],
       "height",
-      addUpdateInputs[5].value
+      getNumberOutOfString(addUpdateInputs[5].value)
     );
     updatePokemonAttribute(
       pokemonArr.data[i],
       "weight",
-      addUpdateInputs[6].value
+      getNumberOutOfString(addUpdateInputs[6].value)
     );
     updatePokemonAttribute(pokemonArr.data[i], "hp", addUpdateInputs[7].value);
     updatePokemonAttribute(
       pokemonArr.data[i],
       "attack",
-      addUpdateInputs[8].value
+      getNumberOutOfString(addUpdateInputs[8].value)
     );
     updatePokemonAttribute(
       pokemonArr.data[i],
       "defense",
-      addUpdateInputs[9].value
+      getNumberOutOfString(addUpdateInputs[9].value)
     );
     updatePokemonAttribute(
       pokemonArr.data[i],
       "speed",
-      addUpdateInputs[10].value
+      getNumberOutOfString(addUpdateInputs[10].value)
     );
     alert("Updated Pokemon with ID: " + targetId + " sucessfully!");
     return true;
@@ -419,7 +427,7 @@ function deleteElementFromArr(arr, targetAttributeType, targetAttribute) {
     for (; i < arr.length - 1; i++) {
       arr[i] = arr[i + 1];
     }
-    pokemonArr.data.pop();
+    arr.pop();
     alert(
       "Pokemon: " + toDelete[0] + "\nID: " + toDelete[1] + "\nHas been Deleted!"
     );
@@ -529,8 +537,8 @@ function getNumberOutOfString(string) {
   // Copy and Pasted from Google. I do NOT know regular expressions.
   let result = string.replace(/[^0-9.]/g, "");
 
-  if (result === "" || result === null) return -1;
-  return parseFloat(result) || 0;
+  if (result === "" || isNaN(result)) return string;
+  return parseFloat(result);
 }
 
 main();
