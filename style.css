@@ -34,11 +34,31 @@ nav #reverse-list-btn {
 .add-delete-menu {
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 
 nav .add-menu {
-  width: 100%;
+  display: grid;
+  padding: 3px;
+  gap: 3px;
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+nav #add-description-bar-input {
+  grid-row: span 2;
+  grid-column: span 2;
+}
+
+nav #add-update-btn {
+  grid-row: span 2;
+}
+
+nav #add-id-bar-input {
+  grid-row: span 2;
+}
+
+nav .add-delete-menu p {
+  grid-column: span 2;
 }
 
 nav .filters {
