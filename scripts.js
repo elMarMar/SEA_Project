@@ -15,18 +15,18 @@ class Pokemon {
     speed
   ) {
     this.name = name;
-    this.id = id;
+    this.id = getNumberOutOfString(id);
     this.species = species;
     this.type1 = type1;
     this.type2 = type2;
     this.sprite = sprite;
     this.description = description;
-    this.height = height;
-    this.weight = weight;
-    this.hp = hp;
-    this.attack = attack;
-    this.defense = defense;
-    this.speed = speed;
+    this.height = getNumberOutOfString(height);
+    this.weight = getNumberOutOfString(weight);
+    this.hp = getNumberOutOfString(hp);
+    this.attack = getNumberOutOfString(attack);
+    this.defense = getNumberOutOfString(defense);
+    this.speed = getNumberOutOfString(speed);
   }
 }
 
@@ -524,11 +524,12 @@ function capitalizeFirstLetter(string) {
 }
 
 function getNumberOutOfString(string) {
-  if (typeOf(string) != "string") return string;
+  if (typeof string !== "string") return string;
 
   // Copy and Pasted from Google. I do NOT know regular expressions.
-  if (!string) return -1;
   let result = string.replace(/[^0-9.]/g, "");
+
+  if (result === "" || result === null) return -1;
   return parseFloat(result) || 0;
 }
 
