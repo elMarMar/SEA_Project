@@ -90,8 +90,8 @@ function storePokemonData(data) {
       temp.type[1],
       temp.image.sprite,
       temp.description,
-      getNumberOutOfString(temp.profile.height),
-      getNumberOutOfString(temp.profile.weight),
+      temp.profile.height,
+      temp.profile.weight,
       temp.base.HP,
       temp.base.Attack,
       temp.base.Defense,
@@ -336,32 +336,28 @@ function updatePokemon(targetId) {
     updatePokemonAttribute(
       pokemonArr.data[i],
       "height",
-      getNumberOutOfString(addUpdateInputs[5].value)
+      addUpdateInputs[5].value
     );
     updatePokemonAttribute(
       pokemonArr.data[i],
       "weight",
-      getNumberOutOfString(addUpdateInputs[6].value)
+      addUpdateInputs[6].value
     );
-    updatePokemonAttribute(
-      pokemonArr.data[i],
-      "hp",
-      getNumberOutOfString(addUpdateInputs[7].value)
-    );
+    updatePokemonAttribute(pokemonArr.data[i], "hp", addUpdateInputs[7].value);
     updatePokemonAttribute(
       pokemonArr.data[i],
       "attack",
-      getNumberOutOfString(addUpdateInputs[8].value)
+      addUpdateInputs[8].value
     );
     updatePokemonAttribute(
       pokemonArr.data[i],
       "defense",
-      getNumberOutOfString(addUpdateInputs[9].value)
+      addUpdateInputs[9].value
     );
     updatePokemonAttribute(
       pokemonArr.data[i],
       "speed",
-      getNumberOutOfString(addUpdateInputs[10].value)
+      addUpdateInputs[10].value
     );
     alert("Updated Pokemon with ID: " + targetId + " sucessfully!");
     return true;
@@ -492,7 +488,7 @@ function applyFilters() {
   let filtered = [];
 
   for (let i = 0; i < pokemonArr.data.length; i++) {
-    p = pokemonArr.data[i];
+    const p = pokemonArr.data[i];
     if (
       p.name.trim().toLowerCase().includes(targetValue) ||
       p.species.trim().toLowerCase().includes(targetValue)
@@ -527,10 +523,13 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// Copy and Pasted from Google. I do NOT know regular expressions.
 function getNumberOutOfString(string) {
+  if (typeOf(string) != "string") return string;
+
+  // Copy and Pasted from Google. I do NOT know regular expressions.
+  if (!string) return -1;
   let result = string.replace(/[^0-9.]/g, "");
-  return parseFloat(result);
+  return parseFloat(result) || 0;
 }
 
 main();
